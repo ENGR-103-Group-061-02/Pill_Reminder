@@ -42,7 +42,7 @@ public class Pill {
     public int getMinutes(){
         return minutes;
     }
-    public String getInstrutctions(){
+    public String getInstructions(){
         return instrutctions;
     }
 

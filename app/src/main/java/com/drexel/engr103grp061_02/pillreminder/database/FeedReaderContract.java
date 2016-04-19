@@ -91,6 +91,39 @@ public final class FeedReaderContract {
             db.delete(FeedEntry.TABLE_NAME, selection, selectionArgs);
         }
 
+        public void updatePill(Pill oldPill, Pill newPill, SQLiteDatabase db){
+            String oldName = oldPill.getName();
+            String newName = newPill.getName();
+            int newQuantity = newPill.getQuantity();
+            int newHours = newPill.getHours();
+            int newMinutes = newPill.getMinutes();
+            String newInstructions = newPill.getInstructions();
+
+            SQLiteStatement getRowIDFromName;
+            String sql = "select "+FeedEntry._ID+" in " + FeedEntry.TABLE_NAME +
+                    " where " + FeedEntry.COLUMN_NAME_NAME + "='" + oldName + "'";
+            getRowIDFromName = db.compileStatement(sql);
+            int rowId = (int) getRowIDFromName.executeInsert();
+
+            ContentValues values = new ContentValues();
+            values.put(FeedEntry.COLUMN_NAME_NAME, newName);
+            values.put(FeedEntry.COLUMN_NAME_QUANTITY, newQuantity);
+            values.put(FeedEntry.COLUMN_NAME_HOURS, newHours);
+            values.put(FeedEntry.COLUMN_NAME_MINUTES, newMinutes);
+            values.put(FeedEntry.COLUMN_NAME_INSRUCTIONS, newInstructions);
+
+            // Which row to update, based on the ID
+            String selection = FeedEntry._ID + " LIKE ?";
+            String[] selectionArgs = { String.valueOf(rowId) };
+
+            int count = db.update(
+                    FeedEntry.TABLE_NAME,
+                    values,
+                    selection,
+                    selectionArgs);
+
+        }
+
         public void updateName(SQLiteDatabase db, String currName, String newName){
             SQLiteStatement getRowIDFromName;
             String sql = "select "+FeedEntry._ID+" in " + FeedEntry.TABLE_NAME +
