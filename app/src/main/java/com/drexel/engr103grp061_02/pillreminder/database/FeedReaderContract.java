@@ -82,11 +82,11 @@ public final class FeedReaderContract {
                     values);
         }
 
-        public void deleteData(SQLiteDatabase db, int rowId) {
+        public void deleteData(SQLiteDatabase db, String name) {
             // Define 'where' part of query.
-            String selection = FeedEntry._ID + " LIKE ?";
+            String selection =  FeedEntry.COLUMN_NAME_NAME+" LIKE ?";
             // Specify arguments in placeholder order.
-            String[] selectionArgs = {String.valueOf(rowId)};
+            String[] selectionArgs = {name};
             // Issue SQL statement.
             db.delete(FeedEntry.TABLE_NAME, selection, selectionArgs);
         }
