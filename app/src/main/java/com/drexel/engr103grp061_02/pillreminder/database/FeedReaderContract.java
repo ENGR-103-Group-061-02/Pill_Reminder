@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 import android.provider.BaseColumns;
 
 /**
@@ -90,8 +91,72 @@ public final class FeedReaderContract {
             db.delete(FeedEntry.TABLE_NAME, selection, selectionArgs);
         }
 
-        public void updateData(SQLiteDatabase db){
+        public void updateName(SQLiteDatabase db, String currName, String newName){
+            SQLiteStatement getRowIDFromName;
+            String sql = "select "+FeedEntry._ID+" in " + FeedEntry.TABLE_NAME +
+                    " where " + FeedEntry.COLUMN_NAME_NAME + "='" + currName + "'";
+            getRowIDFromName = db.compileStatement(sql);
+            int rowId = (int) getRowIDFromName.executeInsert();
+            // New value for one column
+            ContentValues values = new ContentValues();
+            values.put(FeedEntry.COLUMN_NAME_NAME, newName);
 
+            // Which row to update, based on the ID
+            String selection = FeedEntry._ID + " LIKE ?";
+            String[] selectionArgs = { String.valueOf(rowId) };
+
+            int count = db.update(
+                    FeedEntry.TABLE_NAME,
+                    values,
+                    selection,
+                    selectionArgs);
+        }
+
+        public void updateQuantity(SQLiteDatabase db, long currQuantity, int newQuantity){
+            SQLiteStatement getRowIDFromQuantity;
+            String sql = "select "+FeedEntry._ID+" in " + FeedEntry.TABLE_NAME +
+                    " where " + FeedEntry.COLUMN_NAME_QUANTITY + "= ?";
+            getRowIDFromQuantity = db.compileStatement(sql);
+            getRowIDFromQuantity.bindLong(1, currQuantity);
+            int rowId = (int) getRowIDFromQuantity.executeInsert();
+            // New value for one column
+            ContentValues values = new ContentValues();
+            values.put(FeedEntry.COLUMN_NAME_QUANTITY, newQuantity);
+
+            // Which row to update, based on the ID
+            String selection = FeedEntry._ID + " LIKE ?";
+            String[] selectionArgs = { String.valueOf(rowId) };
+
+            int count = db.update(
+                    FeedEntry.TABLE_NAME,
+                    values,
+                    selection,
+                    selectionArgs);
+        }
+
+        public void updateTime(SQLiteDatabase db, long currHours, long currMinutes, int newHours, int newMinutes){
+            SQLiteStatement getRowIDFromTime;
+            String sql = "select "+FeedEntry._ID+" in " + FeedEntry.TABLE_NAME +
+                    " where " + FeedEntry.COLUMN_NAME_HOURS  + "= ? and " + FeedEntry.COLUMN_NAME_MINUTES +
+                    "= ?";
+            getRowIDFromTime = db.compileStatement(sql);
+            getRowIDFromTime.bindLong(1, currHours);
+            getRowIDFromTime.bindLong(2, currMinutes);
+            int rowId = (int) getRowIDFromTime.executeInsert();
+            // New value for one column
+            ContentValues values = new ContentValues();
+            values.put(FeedEntry.COLUMN_NAME_HOURS, newHours);
+            values.put(FeedEntry.COLUMN_NAME_MINUTES, newMinutes);
+
+            // Which row to update, based on the ID
+            String selection = FeedEntry._ID + " LIKE ?";
+            String[] selectionArgs = { String.valueOf(rowId) };
+
+            int count = db.update(
+                    FeedEntry.TABLE_NAME,
+                    values,
+                    selection,
+                    selectionArgs);
         }
     }
 }
