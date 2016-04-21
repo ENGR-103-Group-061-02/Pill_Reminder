@@ -93,17 +93,24 @@ public final class FeedReaderContract {
 
         public void updatePill(Pill oldPill, Pill newPill, SQLiteDatabase db){
             String oldName = oldPill.getName();
+            int oldHours = oldPill.getHours();
+            int oldMinutes = oldPill.getMinutes();
             String newName = newPill.getName();
             int newQuantity = newPill.getQuantity();
             int newHours = newPill.getHours();
             int newMinutes = newPill.getMinutes();
+
             String newInstructions = newPill.getInstructions();
 
-            SQLiteStatement getRowIDFromName;
+            SQLiteStatement getRowIDFromNameAndTime;
             String sql = "select "+FeedEntry._ID+" in " + FeedEntry.TABLE_NAME +
-                    " where " + FeedEntry.COLUMN_NAME_NAME + "='" + oldName + "'";
-            getRowIDFromName = db.compileStatement(sql);
-            int rowId = (int) getRowIDFromName.executeInsert();
+                    " where " + FeedEntry.COLUMN_NAME_NAME + "='" + oldName + "' and " + FeedEntry.COLUMN_NAME_HOURS
+                    + "= ? and " + FeedEntry.COLUMN_NAME_MINUTES +
+                    "= ?";
+            getRowIDFromNameAndTime = db.compileStatement(sql);
+            getRowIDFromNameAndTime.bindLong(1, oldHours);
+            getRowIDFromNameAndTime.bindLong(2, oldMinutes);
+            int rowId = (int) getRowIDFromNameAndTime.executeInsert();
 
             ContentValues values = new ContentValues();
             values.put(FeedEntry.COLUMN_NAME_NAME, newName);

@@ -20,8 +20,7 @@ public class Pill {
     {
         this.quantity=quantity;
     }
-    public void setTime(int hours, int minutes)
-    {
+    public void setTime(int hours, int minutes) {
         this.hours=hours;
         this.minutes=minutes;
     }
@@ -29,6 +28,7 @@ public class Pill {
     {
         this.instrutctions=instrutctions;
     }
+
     //GETTER METHODS
     public String getName(){
         return name;
@@ -45,11 +45,5 @@ public class Pill {
     public String getInstructions(){
         return instrutctions;
     }
-
-
-
-
-
-
 
 }
