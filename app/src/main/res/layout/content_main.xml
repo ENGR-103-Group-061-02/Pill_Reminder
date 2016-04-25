@@ -15,5 +15,20 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello Github" />
+        android:text="Hello Github"
+        android:id="@+id/textView2" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/button"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:contextClickable="false"
+        android:clickable="true"
+        android:enabled="true"
+        android:nestedScrollingEnabled="false"
+        android:onClick="startAct" />
+
 </RelativeLayout>

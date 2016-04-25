@@ -1,5 +1,6 @@
 package com.drexel.engr103grp061_02.pillreminder;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -48,5 +49,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void startAct(View view){
+        Intent myIntent = new Intent(MainActivity.this, Main2Activity.class);
+        MainActivity.this.startActivity(myIntent);
     }
 }
