@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/Pill_name"
+            android:hint="PILL NAME"
+            android:gravity="center"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/Pill_quantity"
+            android:layout_below="@+id/Pill_name"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:hint="QUANTITY PER DOSAGE"
+            android:gravity="center"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Pill_instructions"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:hint="INSTRUCTIONS ON CONSUMPTION"
+            android:layout_below="@+id/Pill_quantity"
+            android:gravity="center"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Pill"
+            android:id="@+id/add_pill"
+            android:onClick="add_pill"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="101dp"
+            android:layout_below="@+id/Pill_instructions" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Additional Time"
+            android:id="@+id/add_time"
+            android:onClick="additional_time"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:layout_below="@+id/Pill_instructions" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/Pill_hours"
+            android:hint="HOURS"
+            android:gravity="center"
+            android:layout_below="@+id/Pill_instructions"
+            android:layout_alignRight="@+id/add_time"
+            android:layout_alignEnd="@+id/add_time" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/colon"
+            android:layout_below="@+id/Pill_instructions"
+            android:layout_toRightOf="@+id/Pill_hours"
+            android:layout_toEndOf="@+id/Pill_hours"
+            android:text=":" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:ems="10"
+            android:id="@+id/Pill_minutes"
+            android:hint="MINUTES"
+            android:gravity="center"
+            android:layout_alignTop="@+id/colon"
+            android:layout_toRightOf="@+id/Pill_hours"
+            android:layout_toEndOf="@+id/Pill_hours" />
+
+    </RelativeLayout>
+</LinearLayout>

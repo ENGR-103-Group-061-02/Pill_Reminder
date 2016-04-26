@@ -2,6 +2,7 @@ package com.drexel.engr103grp061_02.pillreminder.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
@@ -63,11 +64,12 @@ public final class FeedReaderContract {
             onUpgrade(db, oldVersion, newVersion);
         }
 
-        public void addData(SQLiteDatabase db, int id, String name, int quantity, int hours, int minutes, String instructions) {
+        public void addData(SQLiteDatabase db, String name, int quantity, int hours, int minutes, String instructions) {
 
             // Create a new map of values, where column names are the keys
             ContentValues values = new ContentValues();
-            values.put(FeedEntry._ID, id);
+            //i don't think we really need to pass id's in with each addition
+            //values.put(FeedEntry._ID, id);
             values.put(FeedEntry.COLUMN_NAME_NAME, name);
             values.put(FeedEntry.COLUMN_NAME_QUANTITY, quantity);
             values.put(FeedEntry.COLUMN_NAME_HOURS, hours);
@@ -198,5 +200,13 @@ public final class FeedReaderContract {
                     selection,
                     selectionArgs);
         }
+        public Cursor getInfo(SQLiteDatabase db){
+            Cursor cursor;
+            String[] projections = {FeedEntry.COLUMN_NAME_NAME, FeedEntry.COLUMN_NAME_QUANTITY, FeedEntry.COLUMN_NAME_HOURS, FeedEntry.COLUMN_NAME_MINUTES, FeedEntry.COLUMN_NAME_INSRUCTIONS};
+            cursor = db.query(FeedEntry.TABLE_NAME, projections, null, null, null, null, null);
+            //CURSOR RETURN ORDER: NAME, QUANTITY, HOURS, TIME, MINUTES, INSTRUCTIONS((0-4) in Cursor object)
+            return cursor;
+        }
+
     }
 }
