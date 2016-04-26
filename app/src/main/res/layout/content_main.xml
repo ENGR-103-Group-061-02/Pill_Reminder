@@ -23,12 +23,25 @@
         android:layout_height="wrap_content"
         android:text="New Button"
         android:id="@+id/button"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
         android:contextClickable="false"
         android:clickable="true"
         android:enabled="true"
         android:nestedScrollingEnabled="false"
-        android:onClick="startAct" />
+        android:onClick="startAct"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="134dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Issue Note"
+        android:id="@+id/button2"
+        android:layout_marginTop="95dp"
+        android:layout_below="@+id/button"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:enabled="true"
+        android:onClick="testNotify" />
 
 </RelativeLayout>
