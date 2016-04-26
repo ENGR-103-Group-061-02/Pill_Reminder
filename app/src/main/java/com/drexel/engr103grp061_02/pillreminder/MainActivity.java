@@ -1,5 +1,6 @@
 package com.drexel.engr103grp061_02.pillreminder;
 
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
@@ -14,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,36 +65,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testNotify(View view){
-        notify("Test","I hope the fetus is here");
+        notify("Test","Test detail");
     }
+
     public void notify(String title, String detail){
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_stat_action_add_shopping_cart)
-                        .setContentTitle(title)
-                        .setContentText(detail);
-// Creates an explicit intent for an Activity in your app
-        Intent resultIntent = new Intent(this, MainActivity.class);
+        Intent myIntent = new Intent(this , NotificationService.class);
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getService(this, 0, myIntent, 0);
 
-// The stack builder object will contain an artificial back stack for the
-// started Activity.
-// This ensures that navigating backward from the Activity leads out of
-// your application to the Home screen.
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-// Adds the back stack for the Intent (but not the Intent itself)
-        stackBuilder.addParentStack(MainActivity.class);
-// Adds the Intent that starts the Activity to the top of the stack
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(
-                        0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
-        mBuilder.setContentIntent(resultPendingIntent);
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-// mId allows you to update the notification later on.
-        mNotificationManager.notify(1, mBuilder.build());
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.MINUTE, 45);
+        calendar.set(Calendar.SECOND, 00);
 
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24*60*60*1000 , pendingIntent);  //set repeating every 24 hours
     }
 }
