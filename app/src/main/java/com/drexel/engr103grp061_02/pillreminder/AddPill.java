@@ -51,7 +51,9 @@ public class AddPill extends Activity{
         //checks for name matches
         for (int i=0; i<pills.size(); i++)
         {
-            if (name.equals(pills.get(i).getName()))
+            //I'm ingnoring cases on the matches, so the characters actually have to be diff.
+            //Make it easier for the user when searching pill by name
+            if (name.equalsIgnoreCase(pills.get(i).getName()))
             {matches=true;}
         }
         if (matches)
