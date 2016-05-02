@@ -11,9 +11,9 @@ import android.support.v4.app.NotificationCompat;
 /**
  * Created by matthewrassmann on 4/26/16.
  */
-public class NotificationServicee extends IntentService{
+public class NotificationService extends IntentService{
 
-    public NotificationServicee() {
+    public NotificationService() {
         super("NotificationService");
     }
 
