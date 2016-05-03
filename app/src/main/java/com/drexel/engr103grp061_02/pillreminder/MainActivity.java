@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,8 +68,11 @@ public class MainActivity extends AppCompatActivity {
     }
     public void notify(String title, String detail){
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY,19);
+        c.set(Calendar.MINUTE,10);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5000, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 5000, pendingIntent);
     }
 }
