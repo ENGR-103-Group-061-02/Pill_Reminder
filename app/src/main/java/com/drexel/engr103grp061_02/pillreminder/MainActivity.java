@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,24 +17,18 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.drexel.engr103grp061_02.pillreminder.database.FeedReaderContract;
+
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override
@@ -63,14 +58,40 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.startActivity(myIntent);
     }
 
+    public void startAddAct(View view){
+        Intent myIntent = new Intent(MainActivity.this, AddPill.class);
+        MainActivity.this.startActivity(myIntent);
+    }
+
+    public void startDeleteAct(View view){
+        Intent myIntent = new Intent(MainActivity.this, Delete_Pill.class);
+        MainActivity.this.startActivity(myIntent);
+    }
+
+    public void startEditAct(View view){
+        Intent myIntent = new Intent(MainActivity.this, AddPill.class);
+        MainActivity.this.startActivity(myIntent);
+    }
+
+    public void clearNotifications(View view){
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
+        mNotificationManager.cancel(1);
+    }
+
+
     public void testNotify(View view){
         notify("Test","Test detail");
     }
+
     public void notify(String title, String detail){
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY,19);
-        c.set(Calendar.MINUTE,10);
+        c.set(Calendar.HOUR_OF_DAY,17);
+        c.set(Calendar.MINUTE,38);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 5000, pendingIntent);

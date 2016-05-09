@@ -1,6 +1,9 @@
 package com.drexel.engr103grp061_02.pillreminder;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -53,22 +56,24 @@ public class Delete_Pill extends Activity {
     {
         feed = new FeedReaderContract().new FeedReaderDbHelper(getApplicationContext());
         sql = feed.getReadableDatabase();
+        int index = 0;
+        for(int t=0;t<pills.size();t++){
+            if (pills.get(t).getName().equalsIgnoreCase(delete_name)){
+                index = t;
+            }
+        }
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
+        mNotificationManager.cancel(pills.get(index).getId());
         feed.deleteData(sql, delete_name);
         //Toast alerts user with prompted text
         Toast.makeText(getBaseContext(), "Medication Deleted", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
-
-
-
-
-
-
-
-
-
 
     //USED ON CREATE OF PAGE, RE-establishes array list object of pills
     public void retrievePills(){
@@ -80,10 +85,11 @@ public class Delete_Pill extends Activity {
         {
             do {
                 pills.add(new Pill());
-                pills.get(counter).setName(cursor.getString(0));
-                pills.get(counter).setQuantity(Integer.parseInt(cursor.getString(1)));
-                pills.get(counter).setTime(Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)));
-                pills.get(counter).setInstrutctions(cursor.getString(4));
+                pills.get(counter).setId(Integer.parseInt(cursor.getString(0)));
+                pills.get(counter).setName(cursor.getString(1));
+                pills.get(counter).setQuantity(Integer.parseInt(cursor.getString(2)));
+                pills.get(counter).setTime(Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)));
+                pills.get(counter).setInstrutctions(cursor.getString(5));
                 counter++;
             } while(cursor.moveToNext());
         }

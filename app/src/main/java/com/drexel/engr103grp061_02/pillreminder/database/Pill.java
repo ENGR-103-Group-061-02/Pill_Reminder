@@ -9,9 +9,21 @@ public class Pill {
     int quantity;
     int hours;
     int minutes;
-    String instrutctions;
+    String instructions;
+    int id;
+
+    public Pill (){}
+    public Pill(int _id, String _name, int _quantity, int _hours, int _minutes, String _instructions){
+        id = _id;
+        name = _name;
+        quantity = _quantity;
+        hours = _hours;
+        minutes = _minutes;
+        instructions = _instructions;
+    }
 
     //SETTER METHODS:
+    public void setId(int _id){this.id = _id;}
     public void setName(String name)
     {
         this.name=name;
@@ -26,10 +38,11 @@ public class Pill {
     }
     public void setInstrutctions(String instrutctions)
     {
-        this.instrutctions=instrutctions;
+        this.instructions=instrutctions;
     }
 
     //GETTER METHODS
+    public int getId(){return id;}
     public String getName(){
         return name;
     }
@@ -43,7 +56,6 @@ public class Pill {
         return minutes;
     }
     public String getInstructions(){
-        return instrutctions;
+        return instructions;
     }
-
 }
