@@ -19,15 +19,13 @@ import java.util.HashMap;
 public class CustomCursorAdapter extends CursorAdapter{
     private LayoutInflater cursorInflater;
     private String _columnName;
-    private int _layout;
+
     private HashMap map;
 
-    public CustomCursorAdapter(Context context, Cursor cursor, int flags, String column_Name, int layout) {
+    public CustomCursorAdapter(Context context, Cursor cursor, int flags) {
         super(context, cursor, flags);
         cursorInflater = (LayoutInflater) context.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
-        _columnName = column_Name;
-        _layout = layout;
     }
 
     public void bindView(View view, Context context, Cursor cursor) {
@@ -38,8 +36,11 @@ public class CustomCursorAdapter extends CursorAdapter{
 
         TextView textViewName = (TextView) view.findViewById(R.id.pillName);
         TextView textViewTime = (TextView) view.findViewById(R.id.pillTime);
+
+        textViewName.setText(pillName);
+        textViewTime.setText(pillTime);
     }
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return LayoutInflater.from(context).inflate(_layout, parent, false);
+        return LayoutInflater.from(context).inflate(R.layout.pill_list, parent, false);
     }
 }

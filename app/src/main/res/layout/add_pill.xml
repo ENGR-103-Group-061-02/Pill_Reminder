@@ -44,7 +44,7 @@
             android:text="Add Pill"
             android:id="@+id/add_pill"
             android:onClick="add_pill"
-            android:layout_marginBottom="108dp"
+            android:layout_marginBottom="28dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
 
@@ -54,7 +54,6 @@
             android:text="Additional Time"
             android:id="@+id/add_time"
             android:onClick="additional_time"
-            android:layout_marginBottom="53dp"
             android:layout_above="@+id/add_pill"
             android:layout_centerHorizontal="true" />
 
@@ -90,6 +89,13 @@
             android:layout_alignTop="@+id/colon"
             android:layout_toRightOf="@+id/Pill_hours"
             android:layout_toEndOf="@+id/Pill_hours" />
+
+        <TimePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timePicker"
+            android:layout_below="@+id/Pill_hours"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 </LinearLayout>

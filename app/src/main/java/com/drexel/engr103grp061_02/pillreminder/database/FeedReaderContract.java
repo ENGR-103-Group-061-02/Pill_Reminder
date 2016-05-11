@@ -105,7 +105,7 @@ public final class FeedReaderContract {
 
         public void deleteData(SQLiteDatabase db, String name) {
             // Define 'where' part of query.
-            String selection =  FeedEntry.COLUMN_NAME_NAME+" LIKE ?";
+            String selection =  FeedEntry.COLUMN_NAME_NAME + " LIKE ?";
             // Specify arguments in placeholder order.
             String[] selectionArgs = {name};
             // Issue SQL statement.

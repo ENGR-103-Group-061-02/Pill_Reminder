@@ -3,6 +3,7 @@ package com.drexel.engr103grp061_02.pillreminder;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.drexel.engr103grp061_02.pillreminder.database.FeedReaderContract;
@@ -21,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 
-public class AddPill extends Activity {
+public class AddPill extends Activity implements TimePickerDialog.OnTimeSetListener{
     EditText Pill_name, Pill_quantity, Pill_instructions, Pill_hours, Pill_minutes, colon;
     ArrayList<Pill> pills = new ArrayList<Pill>();
     ArrayList<Pill> new_pill;
@@ -30,6 +32,8 @@ public class AddPill extends Activity {
     FeedReaderContract.FeedReaderDbHelper feed;
     Context context = this;
     boolean emptyFlag;
+    int hours;
+    int minutes;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +49,12 @@ public class AddPill extends Activity {
         //Added new_pill and emptyFlag to onCreate so only in whats created can checked against
         emptyFlag = retrievePills();
         new_pill = new ArrayList<Pill>();
+    }
+
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        // Do something with the time chosen by the user
+        hours = hourOfDay;
+        minutes = minute;
     }
 
     //               BUTTON METHODS BELOW:

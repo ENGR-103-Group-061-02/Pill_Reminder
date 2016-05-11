@@ -7,53 +7,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/pill_search"
-            android:hint="NAME"
-            android:layout_marginRight="43dp"
-            android:layout_marginEnd="43dp"
-            android:layout_above="@+id/editText"
-            android:layout_toLeftOf="@+id/delete_button"
-            android:layout_toStartOf="@+id/delete_button" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Search"
-            android:id="@+id/search_button"
-            android:onClick="search_bttn"
-            android:layout_above="@+id/editText"
-            android:layout_alignRight="@+id/editText"
-            android:layout_alignEnd="@+id/editText" />
-
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Delete"
             android:id="@+id/delete_button"
             android:onClick="delete_bttn"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="102dp" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:ems="10"
-            android:id="@+id/editText"
+            android:enabled="true"
+            android:clickable="true"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/pill_search"
-            android:layout_toEndOf="@+id/pill_search" />
+            android:layout_centerHorizontal="true" />
 
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/spinner"
+            android:layout_marginTop="40dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 </LinearLayout>
