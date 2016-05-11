@@ -28,7 +28,6 @@ public class Delete_Pill extends Activity {
     Cursor cursor;
     SQLiteDatabase sql;
     FeedReaderContract.FeedReaderDbHelper feed;
-    Context context = this;
     public  void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
