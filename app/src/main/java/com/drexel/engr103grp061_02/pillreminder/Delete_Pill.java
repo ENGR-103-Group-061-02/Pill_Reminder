@@ -27,6 +27,7 @@ import java.util.ArrayList;
 public class Delete_Pill extends Activity implements AdapterView.OnItemSelectedListener {
     EditText search;
     SQLiteDatabase sql;
+    String name;
     FeedReaderContract.FeedReaderDbHelper feed;
     public  void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,13 +39,14 @@ public class Delete_Pill extends Activity implements AdapterView.OnItemSelectedL
         CustomCursorAdapter spin_adapt = new CustomCursorAdapter (getApplicationContext(), cursor,0);
         spinner.setAdapter(spin_adapt);
         spinner.setOnItemSelectedListener(this);
+
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Cursor cursor = (Cursor) parent.getItemAtPosition(position);
-        String name = cursor.getString(1);
-        feed.deleteData(sql, name);
+        name = cursor.getString(1);
+
     }
 
     @Override
@@ -53,8 +55,8 @@ public class Delete_Pill extends Activity implements AdapterView.OnItemSelectedL
     }
 
 
-    public void delete_bttn(View view)
-    {
+    public void delete_bttn(View view){
+        feed.deleteData(sql, name);
         Toast.makeText(getBaseContext(), "Medication Deleted", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

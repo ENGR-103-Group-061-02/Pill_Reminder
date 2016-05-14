@@ -227,9 +227,10 @@ public final class FeedReaderContract {
             return cursor;
         }
 
-        public int getIdByName(SQLiteDatabase db, String name){
+        public int getIdByName(SQLiteDatabase db, String name, int hours, int minutes){
             String sql = "select "+FeedEntry._ID+" from " + FeedEntry.TABLE_NAME +
-                    " where " + FeedEntry.COLUMN_NAME_NAME  + " = '"+ name +"'";
+                    " where " + FeedEntry.COLUMN_NAME_NAME  + " = '"+ name +"' and "+ FeedEntry.COLUMN_NAME_HOURS +
+                        " = '"+ hours +"' and "+ FeedEntry.COLUMN_NAME_MINUTES + " = '" + minutes+ "'";
             SQLiteStatement getRowIDFromName = db.compileStatement(sql);
             return (int) getRowIDFromName.simpleQueryForLong();
         }

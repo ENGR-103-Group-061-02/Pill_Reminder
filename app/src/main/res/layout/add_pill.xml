@@ -51,51 +51,22 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Additional Time"
-            android:id="@+id/add_time"
-            android:onClick="additional_time"
-            android:layout_above="@+id/add_pill"
-            android:layout_centerHorizontal="true" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/Pill_hours"
-            android:hint="HOURS"
-            android:gravity="center"
+            android:text="Add Time"
+            android:id="@+id/showTimePicker"
             android:layout_below="@+id/Pill_instructions"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:clickable="true"
+            android:enabled="true"
+            android:onClick="showTimePickerDialog" />
 
-        <EditText
+        <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/colon"
-            android:layout_below="@+id/Pill_instructions"
-            android:layout_toRightOf="@+id/Pill_hours"
-            android:layout_toEndOf="@+id/Pill_hours"
-            android:text=":" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="time"
-            android:ems="10"
-            android:id="@+id/Pill_minutes"
-            android:hint="MINUTES"
-            android:gravity="center"
-            android:layout_alignTop="@+id/colon"
-            android:layout_toRightOf="@+id/Pill_hours"
-            android:layout_toEndOf="@+id/Pill_hours" />
-
-        <TimePicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/timePicker"
-            android:layout_below="@+id/Pill_hours"
-            android:layout_centerHorizontal="true" />
+            android:id="@+id/timeList"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:smoothScrollbar="false" />
 
     </RelativeLayout>
 </LinearLayout>

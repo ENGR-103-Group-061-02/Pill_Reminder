@@ -13,8 +13,7 @@ public class Pill {
     int id;
 
     public Pill (){}
-    public Pill(int _id, String _name, int _quantity, int _hours, int _minutes, String _instructions){
-        id = _id;
+    public Pill(String _name, int _quantity, int _hours, int _minutes, String _instructions){
         name = _name;
         quantity = _quantity;
         hours = _hours;
