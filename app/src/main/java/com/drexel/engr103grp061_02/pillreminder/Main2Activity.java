@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -36,6 +37,8 @@ public class Main2Activity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @Override
@@ -80,7 +83,7 @@ public class Main2Activity extends AppCompatActivity
             Intent myIntent = new Intent(this, AddPill.class);
             this.startActivity(myIntent);
         } else if (id == R.id.nav_editPill) {
-            Intent myIntent = new Intent(this, AddPill.class);
+            Intent myIntent = new Intent(this, SelectPill.class);
             this.startActivity(myIntent);
         } else if (id == R.id.nav_deletePill) {
             Intent myIntent = new Intent(this, Delete_Pill.class);

@@ -239,7 +239,7 @@ public final class FeedReaderContract {
 
         public int getRowCount(SQLiteDatabase db){
             Cursor cursor = getInfo(db);
-            return cursor.getCount();
+            return cursor.getCount()-1;
         }
 
     }

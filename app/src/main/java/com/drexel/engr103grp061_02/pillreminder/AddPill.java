@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -92,6 +93,7 @@ public class AddPill extends Activity{
         emptyFlag = retrievePills();
         timeList = (ListView) findViewById(R.id.timeList);
         times = new ArrayList<Time>();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     public void showTimePickerDialog(View v) {
@@ -168,6 +170,8 @@ public class AddPill extends Activity{
         sql = feed.getWritableDatabase();
         // feed.onCreate(sql);
         feed.addData(sql, name, quantity, hoursINT, minutesINT, instructions);
+
+        //NOTIFICATIONS
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY,hoursINT);

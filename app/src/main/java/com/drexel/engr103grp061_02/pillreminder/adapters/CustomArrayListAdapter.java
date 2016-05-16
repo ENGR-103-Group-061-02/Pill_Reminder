@@ -31,11 +31,9 @@ public class CustomArrayListAdapter extends ArrayAdapter<Time> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.new_pill_time_list, parent, false);
         }
 
-        TextView textHours = (TextView)convertView.findViewById(R.id.list_hours);
-        TextView textMinutes = (TextView)convertView.findViewById(R.id.list_minutes);
+        TextView textTime = (TextView)convertView.findViewById(R.id.list_time);
+        textTime.setText(time.getTimeFormattedString());
 
-        textHours.setText(Integer.toString(time.getHours()));
-        textMinutes.setText(Integer.toString(time.getMinutes()));
         return convertView;
     }
 }

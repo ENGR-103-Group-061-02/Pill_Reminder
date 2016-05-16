@@ -63,4 +63,25 @@ public class Time {
 
         return hr12Format;
     }
+
+    public String getTimeFormattedString(){
+        String formattedString;
+
+        int[] times12Format = this.get12HrFormat();
+        formattedString = Integer.toString(times12Format[0])+":";
+
+        if(times12Format[1]<10){
+            formattedString = formattedString+"0"+Integer.toString(times12Format[1]);
+        }else{
+            formattedString = formattedString+Integer.toString(times12Format[1]);
+        }
+
+        if(times12Format[2]==0){
+            formattedString = formattedString+" AM";
+        }else{
+            formattedString = formattedString+" PM";
+        }
+
+        return formattedString;
+    }
 }

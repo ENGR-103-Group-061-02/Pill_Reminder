@@ -64,9 +64,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/timeList"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:smoothScrollbar="false" />
+            android:smoothScrollbar="true"
+            android:layout_below="@+id/showTimePicker"
+            android:layout_above="@+id/add_pill"
+            android:layout_alignRight="@+id/Pill_name"
+            android:layout_alignEnd="@+id/Pill_name"
+            android:layout_alignLeft="@+id/add_pill"
+            android:layout_alignStart="@+id/add_pill" />
 
     </RelativeLayout>
 </LinearLayout>

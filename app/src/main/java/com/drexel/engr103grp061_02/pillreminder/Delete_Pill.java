@@ -6,20 +6,17 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.drexel.engr103grp061_02.pillreminder.adapters.CustomCursorAdapter;
 import com.drexel.engr103grp061_02.pillreminder.database.FeedReaderContract;
-import com.drexel.engr103grp061_02.pillreminder.database.Pill;
-
-import java.util.ArrayList;
 
 /**
  * Created by Liston on 5/2/2016.
@@ -40,6 +37,8 @@ public class Delete_Pill extends Activity implements AdapterView.OnItemSelectedL
         spinner.setAdapter(spin_adapt);
         spinner.setOnItemSelectedListener(this);
         t = new Time();
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
     }
 

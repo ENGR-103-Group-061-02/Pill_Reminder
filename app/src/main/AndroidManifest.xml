@@ -13,24 +13,29 @@
             android:process=":remote" />
 
         <activity android:name=".AddPill" />
-
         <activity android:name=".Delete_Pill" />
-
         <activity
             android:name=".Main2Activity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".TimePickerFragment"
             android:label="@string/title_activity_time_picker_fragment"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EditPill"
+            android:label="@string/title_activity_edit_pill"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SelectPill"
+            android:label="@string/title_activity_select_pill"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
