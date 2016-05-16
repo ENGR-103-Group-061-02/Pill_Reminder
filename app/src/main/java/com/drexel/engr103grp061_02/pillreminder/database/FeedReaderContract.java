@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.provider.BaseColumns;
 
+import com.drexel.engr103grp061_02.pillreminder.Time;
+
 import java.util.IdentityHashMap;
 import java.util.Random;
 
@@ -103,11 +105,11 @@ public final class FeedReaderContract {
                     values);
         }
 
-        public void deleteData(SQLiteDatabase db, String name) {
+        public void deleteData(SQLiteDatabase db, int id) {
             // Define 'where' part of query.
-            String selection =  FeedEntry.COLUMN_NAME_NAME + " LIKE ?";
+            String selection =  FeedEntry._ID + " LIKE ?";
             // Specify arguments in placeholder order.
-            String[] selectionArgs = {name};
+            String[] selectionArgs = {Integer.toString(id)};
             // Issue SQL statement.
             db.delete(FeedEntry.TABLE_NAME, selection, selectionArgs);
         }
@@ -227,12 +229,17 @@ public final class FeedReaderContract {
             return cursor;
         }
 
-        public int getIdByName(SQLiteDatabase db, String name, int hours, int minutes){
+        public int getIdByNameAndTime(SQLiteDatabase db, String name, Time t){
             String sql = "select "+FeedEntry._ID+" from " + FeedEntry.TABLE_NAME +
                     " where " + FeedEntry.COLUMN_NAME_NAME  + " = '"+ name +"' and "+ FeedEntry.COLUMN_NAME_HOURS +
-                        " = '"+ hours +"' and "+ FeedEntry.COLUMN_NAME_MINUTES + " = '" + minutes+ "'";
+                        " = '"+ t.getHours() +"' and "+ FeedEntry.COLUMN_NAME_MINUTES + " = '" + t.getMinutes()+ "'";
             SQLiteStatement getRowIDFromName = db.compileStatement(sql);
             return (int) getRowIDFromName.simpleQueryForLong();
+        }
+
+        public int getRowCount(SQLiteDatabase db){
+            Cursor cursor = getInfo(db);
+            return cursor.getCount();
         }
 
     }

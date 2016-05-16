@@ -25,10 +25,10 @@ import java.util.ArrayList;
  * Created by Liston on 5/2/2016.
  */
 public class Delete_Pill extends Activity implements AdapterView.OnItemSelectedListener {
-    EditText search;
     SQLiteDatabase sql;
     String name;
     FeedReaderContract.FeedReaderDbHelper feed;
+    Time t;
     public  void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.delete_pill_layout);
@@ -39,6 +39,7 @@ public class Delete_Pill extends Activity implements AdapterView.OnItemSelectedL
         CustomCursorAdapter spin_adapt = new CustomCursorAdapter (getApplicationContext(), cursor,0);
         spinner.setAdapter(spin_adapt);
         spinner.setOnItemSelectedListener(this);
+        t = new Time();
 
     }
 
@@ -46,7 +47,8 @@ public class Delete_Pill extends Activity implements AdapterView.OnItemSelectedL
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Cursor cursor = (Cursor) parent.getItemAtPosition(position);
         name = cursor.getString(1);
-
+        t.setHours(cursor.getInt(3));
+        t.setMinutes(cursor.getInt(4));
     }
 
     @Override
@@ -56,10 +58,23 @@ public class Delete_Pill extends Activity implements AdapterView.OnItemSelectedL
 
 
     public void delete_bttn(View view){
-        feed.deleteData(sql, name);
-        Toast.makeText(getBaseContext(), "Medication Deleted", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        int rowCount = feed.getRowCount(sql);
+        if (rowCount==0){
+            Toast.makeText(getBaseContext(), "No Medications to Delete", Toast.LENGTH_LONG).show();
+        }else {
+            int id = feed.getIdByNameAndTime(sql, name, t);
+            feed.deleteData(sql, id);
+            Toast.makeText(getBaseContext(), "Medication Deleted", Toast.LENGTH_LONG).show();
+            //Removing the correct notification based off the unique ID given to the Pills in the database
+            NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_ONE_SHOT);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager.cancel(pendingIntent);
+            mNotificationManager.cancel(name, id);
+            Intent intent = new Intent(this, Main2Activity.class);
+            startActivity(intent);
+        }
     }
 
 }
