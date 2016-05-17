@@ -271,5 +271,25 @@ public final class FeedReaderContract {
             return cursor.getCount();
         }
 
+        //get From ID
+        public Pill getInfoFromID(int id, SQLiteDatabase sql)
+        {
+            Pill temp_pill = new Pill();
+            Cursor cursor = getInfo(sql);
+            if (cursor.moveToFirst())
+            {
+                do {
+                    if (Integer.parseInt(cursor.getString(0))==id)
+                    {
+                        temp_pill.setName(cursor.getString(1));
+                        temp_pill.setQuantity(Integer.parseInt(cursor.getString(2)));
+                        temp_pill.setTime(Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)));
+                        temp_pill.setInstrutctions(cursor.getString(5));
+                    }
+                } while(cursor.moveToNext());
+            }
+            return temp_pill;
+        }
+
     }
 }
