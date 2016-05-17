@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.drexel.engr103grp061_02.pillreminder.adapters.CustomCursorAdapter;
@@ -29,10 +30,16 @@ public class Delete_Pill extends Activity implements AdapterView.OnItemSelectedL
     public  void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.delete_pill_layout);
+        TextView defaultText = (TextView) findViewById(R.id.defaultText);
         feed = new FeedReaderContract().new FeedReaderDbHelper(this);
         sql = feed.getWritableDatabase();
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         Cursor cursor = feed.getInfo(sql);
+        if(cursor.getCount()==0){
+            defaultText.setText("No medications have been added");
+        }else{
+            defaultText.setText("");
+        }
         CustomCursorAdapter spin_adapt = new CustomCursorAdapter (getApplicationContext(), cursor,0);
         spinner.setAdapter(spin_adapt);
         spinner.setOnItemSelectedListener(this);
@@ -70,7 +77,7 @@ public class Delete_Pill extends Activity implements AdapterView.OnItemSelectedL
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_ONE_SHOT);
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
             alarmManager.cancel(pendingIntent);
-            mNotificationManager.cancel(name, id);
+            mNotificationManager.cancel(id);
             Intent intent = new Intent(this, Main2Activity.class);
             startActivity(intent);
         }

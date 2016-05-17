@@ -1,5 +1,6 @@
 package com.drexel.engr103grp061_02.pillreminder.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
@@ -21,7 +22,6 @@ import java.util.HashMap;
 public class CustomCursorAdapter extends CursorAdapter{
     private LayoutInflater cursorInflater;
     private String _columnName;
-
     private HashMap map;
 
     public CustomCursorAdapter(Context context, Cursor cursor, int flags) {
@@ -33,22 +33,18 @@ public class CustomCursorAdapter extends CursorAdapter{
     public void bindView(View view, Context context, Cursor cursor) {
         TextView textViewName = (TextView) view.findViewById(R.id.pillName);
         TextView textViewTime = (TextView) view.findViewById(R.id.pillTime);
+        Log.d("count",Integer.toString(cursor.getCount()));
+        String pillName = cursor.getString(1);
+        int pillHour = cursor.getInt(3);
+        int  pillMinute = cursor.getInt(4);
 
-        if(cursor.getCount() == 1){
-            textViewName.setText("There have been no medication entered.");
-            textViewTime.setText("");
-        }else{
-            String pillName = cursor.getString(1);
-            int pillHour = cursor.getInt(3);
-            int  pillMinute = cursor.getInt(4);
+        Time t = new Time(pillHour,pillMinute);
 
-            Time t = new Time(pillHour,pillMinute);
+        String timeOutput = t.getTimeFormattedString();
 
-            String timeOutput = t.getTimeFormattedString();
+        textViewName.setText(pillName);
+        textViewTime.setText(timeOutput);
 
-            textViewName.setText(pillName);
-            textViewTime.setText(timeOutput);
-        }
 
     }
     public View newView(Context context, Cursor cursor, ViewGroup parent) {

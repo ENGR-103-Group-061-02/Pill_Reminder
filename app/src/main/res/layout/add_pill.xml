@@ -41,7 +41,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Pill"
+            android:text="Submit"
             android:id="@+id/add_pill"
             android:onClick="add_pill"
             android:layout_marginBottom="28dp"

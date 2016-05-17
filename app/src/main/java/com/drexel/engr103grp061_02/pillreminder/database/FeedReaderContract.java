@@ -105,6 +105,41 @@ public final class FeedReaderContract {
                     values);
         }
 
+        public void addData(SQLiteDatabase db, String name, int quantity, Time t, String instructions) {
+
+            // Create a new map of values, where column names are the keys
+            ContentValues values = new ContentValues();
+            Random rand = new Random();
+            int id = 0;
+            int rowId = 0;
+            Cursor cursor = this.getInfo(db);
+            if(cursor.getCount()>0) {
+                while (rowId != -1) {
+                    id = rand.nextInt();
+                    SQLiteStatement getRowIDFromNameAndTime;
+                    String sql = "select " + FeedEntry._ID + " from " + FeedEntry.TABLE_NAME +
+                            " where " + FeedEntry._ID + " = ?";
+                    getRowIDFromNameAndTime = db.compileStatement(sql);
+                    getRowIDFromNameAndTime.bindLong(1, id);
+                    rowId = (int) getRowIDFromNameAndTime.executeInsert();
+                }
+            }
+
+            values.put(FeedEntry._ID, id);
+            values.put(FeedEntry.COLUMN_NAME_NAME, name);
+            values.put(FeedEntry.COLUMN_NAME_QUANTITY, quantity);
+            values.put(FeedEntry.COLUMN_NAME_HOURS, t.getHours());
+            values.put(FeedEntry.COLUMN_NAME_MINUTES, t.getMinutes());
+            values.put(FeedEntry.COLUMN_NAME_INSTRUCTIONS, instructions);
+
+            // Insert the new row, returning the primary key value of the new row
+            long newRowId;
+            newRowId = db.insert(
+                    FeedEntry.TABLE_NAME,
+                    "null",
+                    values);
+        }
+
         public void deleteData(SQLiteDatabase db, int id) {
             // Define 'where' part of query.
             String selection =  FeedEntry._ID + " LIKE ?";
@@ -114,7 +149,7 @@ public final class FeedReaderContract {
             db.delete(FeedEntry.TABLE_NAME, selection, selectionArgs);
         }
 
-        public void updatePill(Pill oldPill, Pill newPill, SQLiteDatabase db){
+        public void updatePill(SQLiteDatabase db, Pill oldPill, Pill newPill){
             String oldName = oldPill.getName();
             int oldHours = oldPill.getHours();
             int oldMinutes = oldPill.getMinutes();
@@ -125,15 +160,7 @@ public final class FeedReaderContract {
 
             String newInstructions = newPill.getInstructions();
 
-            SQLiteStatement getRowIDFromNameAndTime;
-            String sql = "select "+FeedEntry._ID+" from " + FeedEntry.TABLE_NAME +
-                    " where " + FeedEntry.COLUMN_NAME_NAME + "='" + oldName + "' and " + FeedEntry.COLUMN_NAME_HOURS
-                    + "= ? and " + FeedEntry.COLUMN_NAME_MINUTES +
-                    "= ?";
-            getRowIDFromNameAndTime = db.compileStatement(sql);
-            getRowIDFromNameAndTime.bindLong(1, oldHours);
-            getRowIDFromNameAndTime.bindLong(2, oldMinutes);
-            int rowId = (int) getRowIDFromNameAndTime.executeInsert();
+            int rowId = getIdByNameAndTime(db, oldName, new Time(oldHours, oldMinutes));
 
             ContentValues values = new ContentValues();
             values.put(FeedEntry.COLUMN_NAME_NAME, newName);
@@ -238,8 +265,10 @@ public final class FeedReaderContract {
         }
 
         public int getRowCount(SQLiteDatabase db){
+            String sqlCommand = "select count(*) from " + FeedEntry.TABLE_NAME;
+
             Cursor cursor = getInfo(db);
-            return cursor.getCount()-1;
+            return cursor.getCount();
         }
 
     }

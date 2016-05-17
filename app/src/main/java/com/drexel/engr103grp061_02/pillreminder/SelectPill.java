@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.drexel.engr103grp061_02.pillreminder.adapters.CustomCursorAdapter;
 import com.drexel.engr103grp061_02.pillreminder.database.FeedReaderContract;
@@ -28,11 +29,16 @@ public class SelectPill extends AppCompatActivity implements AdapterView.OnItemC
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
+        TextView defaultText = (TextView) findViewById(R.id.defaultSelect);
         feed = new FeedReaderContract().new FeedReaderDbHelper(this);
         sql = feed.getWritableDatabase();
         ListView listView = (ListView) findViewById(R.id.listSelectPill);
         Cursor cursor = feed.getInfo(sql);
+        if(cursor.getCount()==0){
+            defaultText.setText("No medications have been added");
+        }else{
+            defaultText.setText("");
+        }
         CustomCursorAdapter list_adapt = new CustomCursorAdapter(this, cursor,0);
         listView.setAdapter(list_adapt);
         listView.setOnItemClickListener(this);

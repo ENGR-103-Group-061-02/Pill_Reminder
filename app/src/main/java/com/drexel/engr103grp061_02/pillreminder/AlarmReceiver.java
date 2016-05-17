@@ -21,7 +21,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         String title = intent.getStringExtra("title");
         String detail = intent.getStringExtra("detail");
         int id = intent.getIntExtra("id", 0);
-        String name = intent.getStringExtra("name");
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_stat_image_control_point)
@@ -38,7 +37,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         mBuilder.setSound(alarmSound);
 
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(name,id, mBuilder.build());
+        mNotificationManager.notify(id, mBuilder.build());
     }
 }
 
