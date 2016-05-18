@@ -67,11 +67,13 @@ public class EditPill extends AppCompatActivity {
     public static class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
         Context context;
+        TextView textText;
         public TimePickerFragment(){
 
         }
-        public TimePickerFragment(Context c){
+        public TimePickerFragment(Context c, TextView _timeText){
             context = c;
+            textText = _timeText;
         }
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -92,12 +94,13 @@ public class EditPill extends AppCompatActivity {
                 Toast.makeText(context, "Time already added \n Enter a new time", Toast.LENGTH_SHORT).show();
             }else{
                 t = newTime;
+                textText.setText(t.getTimeFormattedString());
             }
         }
     }
 
     public void showTimePickerDialog(View v) {
-        DialogFragment newFragment = new TimePickerFragment(this);
+        DialogFragment newFragment = new TimePickerFragment(this,textTime);
         newFragment.show(this.getFragmentManager(),"timePicker");
     }
 
@@ -128,7 +131,7 @@ public class EditPill extends AppCompatActivity {
         alarmIntent.putExtra("id",feed.getIdByNameAndTime(sql, name, newTime));
         alarmIntent.putExtra("name",name);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, feed.getIdByNameAndTime(sql, name, newTime),
-                alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                alarmIntent, PendingIntent.FLAG_ONE_SHOT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 24*60*60*1000, pendingIntent);
 

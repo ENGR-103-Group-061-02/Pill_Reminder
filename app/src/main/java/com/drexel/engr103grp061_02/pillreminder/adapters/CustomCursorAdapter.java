@@ -16,7 +16,7 @@ import com.drexel.engr103grp061_02.pillreminder.Time;
 import java.util.HashMap;
 
 /**
- * Created by matthewrassmann on 5/10/16.
+ * Created by Matthew Rassmann on 5/10/16.
  */
 
 public class CustomCursorAdapter extends CursorAdapter{

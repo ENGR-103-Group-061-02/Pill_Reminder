@@ -67,7 +67,6 @@ public class AddPill extends Activity{
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             Time addTime = new Time(hourOfDay,minute);
             boolean existingTime = false;
-            //TODO Check for equivalent times and prompt the user to enter a new time
             for (Time p:times) {
                 if (p.equals(addTime)){
                     existingTime = true;
@@ -172,10 +171,15 @@ public class AddPill extends Activity{
         feed.addData(sql, name, quantity, hoursINT, minutesINT, instructions);
 
         //NOTIFICATIONS
+
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY,hoursINT);
-        c.set(Calendar.MINUTE,minutesINT);
+        c.set(Calendar.MINUTE, minutesINT);
+        Calendar currC = Calendar.getInstance();
+        if(currC.after(c)){
+            c.add(Calendar.DAY_OF_WEEK,1);
+        }
         // Fix so it says pill when quantity is one
         Time newTime = new Time(hoursINT,minutesINT);
         alarmIntent.putExtra("title", "Take your " + name + " medication.");
@@ -187,7 +191,7 @@ public class AddPill extends Activity{
         alarmIntent.putExtra("id",feed.getIdByNameAndTime(sql, name, newTime));
         alarmIntent.putExtra("name",name);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, feed.getIdByNameAndTime(sql, name, newTime),
-                alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                alarmIntent, PendingIntent.FLAG_ONE_SHOT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 24*60*60*1000, pendingIntent);
         Log.d("ID", Integer.toString(feed.getIdByNameAndTime(sql, name, newTime)));

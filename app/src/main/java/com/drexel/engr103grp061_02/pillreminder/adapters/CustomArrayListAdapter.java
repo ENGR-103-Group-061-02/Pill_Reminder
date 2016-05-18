@@ -20,7 +20,6 @@ public class CustomArrayListAdapter extends ArrayAdapter<Time> {
     public CustomArrayListAdapter(Context ctx, ArrayList<Time> times) {
         super(ctx, 0, times);
     }
-   //other constructors
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
