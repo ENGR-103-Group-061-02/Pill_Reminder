@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Name"
+            android:id="@+id/notified_name"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Quantity"
+            android:id="@+id/notified_quantity"
+            android:layout_below="@+id/notified_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="44dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Instructions"
+            android:id="@+id/notified_instruction"
+            android:layout_below="@+id/notified_quantity"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="55dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Hours"
+            android:id="@+id/notified_hour"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/notified_name"
+            android:layout_toStartOf="@+id/notified_name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Minute"
+            android:id="@+id/notified_minute"
+            android:layout_alignTop="@+id/notified_hour"
+            android:layout_toRightOf="@+id/notified_instruction"
+            android:layout_toEndOf="@+id/notified_instruction" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="TAKE YOUR MEDS"
+            android:id="@+id/textView2"
+            android:layout_marginBottom="87dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/notified_hour"
+            android:layout_alignStart="@+id/notified_hour" />
+    </RelativeLayout>
+</LinearLayout>
