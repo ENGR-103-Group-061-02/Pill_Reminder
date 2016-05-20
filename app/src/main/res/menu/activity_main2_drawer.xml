@@ -15,9 +15,9 @@
             android:icon="@drawable/ic_menu_delete"
             android:title="Delete Pill" />
         <item
-            android:id="@+id/nav_clearNotes"
+            android:id="@+id/nav_clearPills"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Clear Notifications"/>
+            android:title="Clear Medication"/>
     </group>
 
 </menu>

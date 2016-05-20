@@ -70,6 +70,14 @@ public final class FeedReaderContract {
             onUpgrade(db, oldVersion, newVersion);
         }
 
+        public void deleteTable(SQLiteDatabase db){
+            String sql = "DROP TABLE "+FeedEntry.TABLE_NAME;
+            SQLiteStatement delete = db.compileStatement(sql);
+            delete.execute();
+
+        }
+
+
         public void addData(SQLiteDatabase db, String name, int quantity, int hours, int minutes, String instructions) {
 
             // Create a new map of values, where column names are the keys
@@ -272,15 +280,12 @@ public final class FeedReaderContract {
         }
 
         //get From ID
-        public Pill getInfoFromID(int id, SQLiteDatabase sql)
-        {
+        public Pill getInfoFromID(int id, SQLiteDatabase sql) {
             Pill temp_pill = new Pill();
             Cursor cursor = getInfo(sql);
-            if (cursor.moveToFirst())
-            {
+            if (cursor.moveToFirst()) {
                 do {
-                    if (Integer.parseInt(cursor.getString(0))==id)
-                    {
+                    if (Integer.parseInt(cursor.getString(0))==id) {
                         temp_pill.setName(cursor.getString(1));
                         temp_pill.setQuantity(Integer.parseInt(cursor.getString(2)));
                         temp_pill.setTime(Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)));
@@ -290,6 +295,5 @@ public final class FeedReaderContract {
             }
             return temp_pill;
         }
-
     }
 }

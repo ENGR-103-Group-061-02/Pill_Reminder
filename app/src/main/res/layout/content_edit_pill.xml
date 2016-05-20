@@ -10,14 +10,95 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.drexel.engr103grp061_02.pillreminder.EditPill"
-    tools:showIn="@layout/activity_edit_pill">
+    tools:showIn="@layout/activity_edit_pill"
+    android:clickable="true">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Name"
+        android:id="@+id/pillName"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:editable="true"
+        android:clickable="true"
+        android:digits="QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890 "
+        android:enabled="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="CurrTime"
+        android:id="@+id/pillTime"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:enabled="true"
+        android:layout_above="@+id/changeTime"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Instructions"
+        android:id="@+id/pillInstructions"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:editable="true"
+        android:clickable="true"
+        android:digits="QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890 "
+        android:enabled="true"
+        android:layout_above="@+id/editFinish"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="38dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Quantity"
+        android:id="@+id/pillQuantity"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:editable="true"
+        android:clickable="true"
+        android:digits="1234567890 "
+        android:enabled="true"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change TIme"
+        android:id="@+id/changeTime"
+        android:onClick="showTimePickerDialog"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finish"
+        android:id="@+id/editFinish"
+        android:onClick="enter"
+        android:layout_marginBottom="56dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Name"
-        android:id="@+id/pillName"
+        android:id="@+id/textView3"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -26,50 +107,18 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Quantity"
-        android:id="@+id/pillQuantity"
-        android:layout_marginTop="54dp"
+        android:id="@+id/textView4"
         android:layout_below="@+id/pillName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Aditional Information"
+        android:id="@+id/textView5"
+        android:layout_above="@+id/pillInstructions"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="CurrTime"
-        android:id="@+id/pillTime"
-        android:layout_below="@+id/pillQuantity"
-        android:layout_alignRight="@+id/pillQuantity"
-        android:layout_alignEnd="@+id/pillQuantity"
-        android:layout_marginTop="46dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Instructions"
-        android:id="@+id/pillInstructions"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/changeTime"
-        android:layout_alignLeft="@+id/changeTime"
-        android:layout_alignStart="@+id/changeTime" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Change TIme"
-        android:id="@+id/changeTime"
-        android:onClick="showTimePickerDialog"
-        android:layout_below="@+id/pillTime"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Finish"
-        android:id="@+id/editFinish"
-        android:layout_below="@+id/pillInstructions"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="72dp"
-        android:onClick="enter" />
 </RelativeLayout>

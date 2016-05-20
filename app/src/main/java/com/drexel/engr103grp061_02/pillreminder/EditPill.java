@@ -94,7 +94,7 @@ public class EditPill extends AppCompatActivity {
                 Toast.makeText(context, "Time already added \n Enter a new time", Toast.LENGTH_SHORT).show();
             }else{
                 t = newTime;
-                textText.setText(t.getTimeFormattedString());
+                textText.setText("Time: " + t.getTimeFormattedString());
             }
         }
     }

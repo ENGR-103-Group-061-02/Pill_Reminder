@@ -44,6 +44,14 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
         </activity>
+
+        <activity
+            android:name=".PillNotificationPage"
+            android:parentActivityName=".Main2Activity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Main2Activity"/>
+            </activity>
     </application>
 
 </manifest>

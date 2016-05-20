@@ -12,11 +12,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/Pill_name"
-            android:hint="PILL NAME"
+            android:hint="Name of Medication"
             android:gravity="center"
             android:layout_alignParentTop="true"
-            android:layout_alignLeft="@+id/add_pill"
-            android:layout_alignStart="@+id/add_pill" />
+            android:layout_centerHorizontal="true"
+            android:digits="QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890 "/>
 
         <EditText
             android:layout_width="wrap_content"
@@ -24,19 +24,21 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/Pill_quantity"
-            android:hint="QUANTITY PER DOSAGE"
+            android:hint="Quantity Per Dosage"
             android:gravity="center"
             android:layout_below="@+id/Pill_name"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:digits="1234567890"/>
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/Pill_instructions"
-            android:hint="INSTRUCTIONS ON CONSUMPTION"
+            android:hint="Aditional Information (Optional)"
             android:gravity="center"
             android:layout_below="@+id/Pill_quantity"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:digits="QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890 "/>
 
         <Button
             android:layout_width="wrap_content"
@@ -44,21 +46,22 @@
             android:text="Submit"
             android:id="@+id/add_pill"
             android:onClick="add_pill"
-            android:layout_marginBottom="28dp"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add Time"
             android:id="@+id/showTimePicker"
-            android:layout_below="@+id/Pill_instructions"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:clickable="true"
             android:enabled="true"
-            android:onClick="showTimePickerDialog" />
+            android:onClick="showTimePickerDialog"
+            android:layout_below="@+id/Pill_instructions"
+            android:layout_alignLeft="@+id/add_pill"
+            android:layout_alignStart="@+id/add_pill" />
 
         <ListView
             android:layout_width="wrap_content"
@@ -66,11 +69,11 @@
             android:id="@+id/timeList"
             android:smoothScrollbar="true"
             android:layout_below="@+id/showTimePicker"
+            android:layout_alignLeft="@+id/Pill_name"
+            android:layout_alignStart="@+id/Pill_name"
             android:layout_above="@+id/add_pill"
             android:layout_alignRight="@+id/Pill_name"
-            android:layout_alignEnd="@+id/Pill_name"
-            android:layout_alignLeft="@+id/add_pill"
-            android:layout_alignStart="@+id/add_pill" />
+            android:layout_alignEnd="@+id/Pill_name" />
 
     </RelativeLayout>
 </LinearLayout>

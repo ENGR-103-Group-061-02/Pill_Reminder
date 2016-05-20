@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 /**
  * Created by matthewrassmann on 4/26/16.
@@ -26,11 +25,17 @@ public class AlarmReceiver extends BroadcastReceiver {
                         .setSmallIcon(R.drawable.ic_stat_image_control_point)
                         .setContentTitle(title)
                         .setContentText(detail);
-        Intent resultIntent = new Intent(context, Main2Activity.class);
+        Intent resultIntent = new Intent(context, PillNotificationPage.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(Main2Activity.class);
+        // Adds the back stack
+        stackBuilder.addParentStack(PillNotificationPage.class);
+        // Adds the Intent to the top of the stack
+        resultIntent.putExtra("id",id);
         stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_ONE_SHOT);
+        // Gets a PendingIntent containing the entire back stack
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_ONE_SHOT);
+
         mBuilder.setContentIntent(resultPendingIntent);
 
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);

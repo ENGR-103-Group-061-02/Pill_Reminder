@@ -1,5 +1,7 @@
 package com.drexel.engr103grp061_02.pillreminder;
 
+import java.util.Calendar;
+
 /**
  * Created by Matt on 5/13/2016.
  */
@@ -83,5 +85,12 @@ public class Time {
         }
 
         return formattedString;
+    }
+
+    public Time subtract(Time time){
+        Time out = new Time();
+        out.setHours(this.getHours() - time.getHours());
+        out.setMinutes(this.getMinutes() - time.getMinutes());
+        return out;
     }
 }

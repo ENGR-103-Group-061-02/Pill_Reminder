@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,8 +21,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.drexel.engr103grp061_02.pillreminder.database.FeedReaderContract;
+import com.drexel.engr103grp061_02.pillreminder.database.Pill;
+
+import java.util.ArrayList;
+
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    ArrayList<Pill> pills = new ArrayList<Pill>();
+    Cursor cursor;
+    SQLiteDatabase sql;
+    FeedReaderContract.FeedReaderDbHelper feed;
+    boolean flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +51,8 @@ public class Main2Activity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        flag = retrievePills();
     }
 
     @Override
@@ -88,17 +102,44 @@ public class Main2Activity extends AppCompatActivity
         } else if (id == R.id.nav_deletePill) {
             Intent myIntent = new Intent(this, Delete_Pill.class);
             this.startActivity(myIntent);
-        } else if (id == R.id.nav_clearNotes){
+        } else if (id == R.id.nav_clearPills){
             NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_ONE_SHOT);
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
             alarmManager.cancel(pendingIntent);
             mNotificationManager.cancelAll();
+            feed.deleteTable(sql);
+            feed.onCreate(sql);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public boolean retrievePills() {
+        int counter = 0;
+        feed = new FeedReaderContract().new FeedReaderDbHelper(getApplicationContext());
+        sql = feed.getReadableDatabase();
+        cursor = feed.getInfo(sql);
+        if (cursor.getCount() == 0) {
+            return false;
+        } else {
+            if (cursor.moveToFirst()) {
+                do {
+                    pills.add(new Pill());
+                    pills.get(counter).setName(cursor.getString(1));
+                    pills.get(counter).setQuantity(Integer.parseInt(cursor.getString(2)));
+                    pills.get(counter).setTime(Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)));
+                    pills.get(counter).setInstrutctions(cursor.getString(5));
+                    counter++;
+                } while (cursor.moveToNext());
+            }
+        }
+        return true;
+    }
+
+
+
 }

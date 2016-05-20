@@ -14,9 +14,10 @@ public class PillNotificationPage  extends Activity {
     Pill pill_notified = new Pill();
     SQLiteDatabase sql;
     FeedReaderContract.FeedReaderDbHelper feed;
-    public  void onCreate(Bundle savedInstanceState, int id) {
+    public  void onCreate(Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pill_notification);
+        int id = this.getIntent().getIntExtra("id",0);
         //declaring ID's
         notifiedName = (TextView) findViewById(R.id.notified_name);
         notifiedQuantity = (TextView) findViewById(R.id.notified_quantity);
