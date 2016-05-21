@@ -2,7 +2,6 @@ package com.drexel.engr103grp061_02.pillreminder;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -26,22 +25,19 @@ public class AlarmReceiver extends BroadcastReceiver {
                         .setContentTitle(title)
                         .setContentText(detail);
         Intent resultIntent = new Intent(context, PillNotificationPage.class);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        // Adds the back stack
-        stackBuilder.addParentStack(PillNotificationPage.class);
-        // Adds the Intent to the top of the stack
         resultIntent.putExtra("id",id);
-        stackBuilder.addNextIntent(resultIntent);
-        // Gets a PendingIntent containing the entire back stack
         PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent.getActivity(context,0,resultIntent,PendingIntent.FLAG_ONE_SHOT);
 
         mBuilder.setContentIntent(resultPendingIntent);
+        mBuilder.setAutoCancel(true);
 
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         mBuilder.setSound(alarmSound);
 
-        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager mNotificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
         mNotificationManager.notify(id, mBuilder.build());
     }
 }

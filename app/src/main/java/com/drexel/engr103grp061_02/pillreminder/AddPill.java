@@ -191,7 +191,7 @@ public class AddPill extends Activity{
         alarmIntent.putExtra("id",feed.getIdByNameAndTime(sql, name, newTime));
         alarmIntent.putExtra("name",name);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, feed.getIdByNameAndTime(sql, name, newTime),
-                alarmIntent, PendingIntent.FLAG_ONE_SHOT);
+                alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 24*60*60*1000, pendingIntent);
         Log.d("ID", Integer.toString(feed.getIdByNameAndTime(sql, name, newTime)));
