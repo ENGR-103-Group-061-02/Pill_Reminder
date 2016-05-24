@@ -1,5 +1,7 @@
 package com.drexel.engr103grp061_02.pillreminder.database;
 
+import com.drexel.engr103grp061_02.pillreminder.Time;
+
 /**
  * Created by Matt on 4/18/2016.
  */
@@ -56,5 +58,8 @@ public class Pill {
     }
     public String getInstructions(){
         return instructions;
+    }
+    public Time getTime(){
+        return new Time(hours,minutes);
     }
 }

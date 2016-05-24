@@ -14,7 +14,7 @@ import com.drexel.engr103grp061_02.pillreminder.database.Pill;
 public class PillNotificationPage extends Activity {
 
     public  void onCreate(Bundle savedInstanceState ) {
-        TextView notifiedName, notifiedQuantity, notifiedInstructions, notifiedHours, notifiedMinutes;
+        TextView notifiedName, notifiedQuantity, notifiedInstructions, noteTime;
         //Takes in pill's Feeder ID
         Pill pill_notified;
         SQLiteDatabase sql;
@@ -28,8 +28,7 @@ public class PillNotificationPage extends Activity {
         notifiedName = (TextView) findViewById(R.id.notified_name);
         notifiedQuantity = (TextView) findViewById(R.id.notified_quantity);
         notifiedInstructions = (TextView) findViewById(R.id.notified_instruction);
-        notifiedHours = (TextView) findViewById(R.id.notified_hour);
-        notifiedMinutes = (TextView) findViewById(R.id.notified_minute);
+        noteTime = (TextView) findViewById(R.id.noteTime);
 
         //Database with ID
         feed = new FeedReaderContract().new FeedReaderDbHelper(getApplicationContext());
@@ -42,8 +41,7 @@ public class PillNotificationPage extends Activity {
         notifiedName.setText(pill_notified.getName());
         notifiedQuantity.setText(Integer.toString(pill_notified.getQuantity()));
         notifiedInstructions.setText(pill_notified.getInstructions());
-        notifiedHours.setText(Integer.toString(pill_notified.getHours()));
-        notifiedMinutes.setText(Integer.toString(pill_notified.getMinutes()));
+        noteTime.setText(pill_notified.getTime().getTimeFormattedString());
     }
 
     public void close(View view){

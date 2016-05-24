@@ -18,14 +18,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ListView;
 
+import com.drexel.engr103grp061_02.pillreminder.adapters.CustomCursorAdapter;
+import com.drexel.engr103grp061_02.pillreminder.adapters.HomePageAdapter;
 import com.drexel.engr103grp061_02.pillreminder.database.FeedReaderContract;
 import com.drexel.engr103grp061_02.pillreminder.database.Pill;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -57,6 +55,9 @@ public class Main2Activity extends AppCompatActivity
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         flag = retrievePills();
+        ListView listView = (ListView) findViewById(R.id.homePageList);
+        HomePageAdapter list_adapt = new HomePageAdapter(this, cursor,0);
+        listView.setAdapter(list_adapt);
         //
         //HOME PAGE TIME TILL NEXT PILL TRACKER START---------------------
         //

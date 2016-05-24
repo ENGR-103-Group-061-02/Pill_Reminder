@@ -32,30 +32,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Hours"
-        android:id="@+id/notified_hour"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/notified_instruction"
-        android:layout_toStartOf="@+id/notified_instruction"
-        android:layout_marginRight="37dp"
-        android:layout_marginEnd="37dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Minute"
-        android:id="@+id/notified_minute"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/notified_instruction"
-        android:layout_toEndOf="@+id/notified_instruction"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp" />
-
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
@@ -68,4 +44,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="32dp"
         android:clickable="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Time"
+        android:id="@+id/noteTime"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
