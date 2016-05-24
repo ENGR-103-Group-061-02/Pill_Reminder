@@ -24,11 +24,15 @@ import android.widget.TextView;
 
 import com.drexel.engr103grp061_02.pillreminder.database.FeedReaderContract;
 import com.drexel.engr103grp061_02.pillreminder.database.Pill;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     ArrayList<Pill> pills = new ArrayList<Pill>();
+    ArrayList<String> last_taken = new ArrayList<String>();
     Cursor cursor;
     SQLiteDatabase sql;
     FeedReaderContract.FeedReaderDbHelper feed;
@@ -53,7 +57,39 @@ public class Main2Activity extends AppCompatActivity
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         flag = retrievePills();
-
+        //
+        //HOME PAGE TIME TILL NEXT PILL TRACKER START---------------------
+        //
+        if (pills.size()>0) {
+            Calendar Now = Calendar.getInstance();
+            int hour = Now.get(Calendar.HOUR_OF_DAY);
+            int minute = Now.get(Calendar.MINUTE);
+            int Total = minute + (hour * 60);
+            //difference initialized as one more minute than 24 hours worth
+            int tempH, tempM, tempTotal, difference = 1441;
+            for (int c = 0; c < pills.size(); c++) {
+                tempH = pills.get(c).getHours();
+                tempM = pills.get(c).getMinutes();
+                tempTotal = tempM + (tempH * 60);
+                if (tempTotal > Total) {
+                    if ((tempTotal - Total) < difference) {
+                        difference = (tempTotal - Total);
+                    }
+                } else {
+                    tempTotal = tempTotal + (1439 - Total);
+                    if ((tempTotal - Total) < difference) {
+                        difference = (tempTotal - Total);
+                    }
+                }
+            }
+            //HOURS AND MINUTES TILL NEXT PILL TO TAKE
+            hour = difference / 60;
+            minute = difference % 60;
+        }
+        else
+        {
+            //make text set to no pills inputted
+        }
     }
 
     @Override
@@ -118,6 +154,15 @@ public class Main2Activity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public ArrayList findLast()
+    {
+
+
+
+        return null;
+    }
+
 
     public boolean retrievePills() {
         int counter = 0;
