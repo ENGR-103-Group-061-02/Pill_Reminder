@@ -8,9 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.provider.BaseColumns;
 
-import com.drexel.engr103grp061_02.pillreminder.Time;
-
-import java.util.IdentityHashMap;
 import java.util.Random;
 
 /**

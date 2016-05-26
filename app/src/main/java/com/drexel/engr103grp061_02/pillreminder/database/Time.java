@@ -1,6 +1,4 @@
-package com.drexel.engr103grp061_02.pillreminder;
-
-import java.util.Calendar;
+package com.drexel.engr103grp061_02.pillreminder.database;
 
 /**
  * Created by Matt on 5/13/2016.

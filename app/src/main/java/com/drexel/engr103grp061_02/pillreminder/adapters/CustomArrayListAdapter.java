@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.drexel.engr103grp061_02.pillreminder.R;
-import com.drexel.engr103grp061_02.pillreminder.Time;
+import com.drexel.engr103grp061_02.pillreminder.database.Time;
 
 import java.util.ArrayList;
 

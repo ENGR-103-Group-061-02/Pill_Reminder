@@ -12,6 +12,15 @@
     tools:context="com.drexel.engr103grp061_02.pillreminder.SelectPill"
     tools:showIn="@layout/activity_select_pill">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView5"
+        android:contentDescription="Logo"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo2" />
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,4 +41,5 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textColor="#000000" />
+
 </RelativeLayout>

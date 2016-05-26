@@ -4,19 +4,19 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.drexel.engr103grp061_02.pillreminder.adapters.CustomCursorAdapter;
 import com.drexel.engr103grp061_02.pillreminder.database.FeedReaderContract;
+import com.drexel.engr103grp061_02.pillreminder.database.Time;
 
 public class SelectPill extends AppCompatActivity implements AdapterView.OnItemClickListener {
     SQLiteDatabase sql;
@@ -66,4 +66,5 @@ public class SelectPill extends AppCompatActivity implements AdapterView.OnItemC
         intent.putExtra("instructions",instructions);
         startActivity(intent);
     }
+
 }

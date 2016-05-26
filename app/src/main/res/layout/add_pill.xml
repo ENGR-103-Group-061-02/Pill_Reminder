@@ -6,7 +6,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:background="#ffffff">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView3"
+            android:src="@drawable/logo2"
+            android:contentDescription="Logo"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
 
         <EditText
             android:layout_width="wrap_content"

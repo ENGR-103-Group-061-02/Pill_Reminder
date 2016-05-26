@@ -9,8 +9,10 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import com.drexel.engr103grp061_02.pillreminder.adapters.CustomCursorAdapter;
 import com.drexel.engr103grp061_02.pillreminder.database.FeedReaderContract;
+import com.drexel.engr103grp061_02.pillreminder.database.Time;
 
 /**
  * Created by Liston on 5/2/2016.

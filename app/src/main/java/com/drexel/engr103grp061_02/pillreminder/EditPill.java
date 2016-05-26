@@ -9,21 +9,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.drexel.engr103grp061_02.pillreminder.adapters.CustomArrayListAdapter;
 import com.drexel.engr103grp061_02.pillreminder.database.FeedReaderContract;
 import com.drexel.engr103grp061_02.pillreminder.database.Pill;
+import com.drexel.engr103grp061_02.pillreminder.database.Time;
 
 import java.util.Calendar;
 
@@ -61,7 +60,11 @@ public class EditPill extends AppCompatActivity {
         textName.setText(name);
         textQuantity.setText(Integer.toString(quantity));
         textTime.setText(oldT.getTimeFormattedString());
-        textInstructions.setText(instructions);
+        if(instructions.equals("")){
+            textInstructions.setHint("No Additional Information");
+        }else {
+            textInstructions.setText(instructions);
+        }
     }
 
     public static class TimePickerFragment extends DialogFragment

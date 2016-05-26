@@ -9,12 +9,17 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TimePicker;
@@ -23,12 +28,15 @@ import android.widget.Toast;
 import com.drexel.engr103grp061_02.pillreminder.adapters.CustomArrayListAdapter;
 import com.drexel.engr103grp061_02.pillreminder.database.FeedReaderContract;
 import com.drexel.engr103grp061_02.pillreminder.database.Pill;
+import com.drexel.engr103grp061_02.pillreminder.database.Time;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-// TODO COMMENTS REALLY NEEDS COMMENTS, edit the xml to disable certain characters, move the list view to be centered.
-// TODO Check the user actually inputted data and fix if they did not
+// TODO COMMENTS REALLY NEEDS COMMENTS
 // This Class was way too complicated and will be changed to be more readable and easier to understand the flow of data
 // EDIT It is still complicated just because of the nested class. I will probably move the class down to the bottom
 // so it is out of the way and it is easier to understand the rest of the activity.
@@ -95,27 +103,38 @@ public class AddPill extends Activity{
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
+    public static BitmapDrawable getAssetImage(Context context, String filename) throws IOException {
+        AssetManager assets = context.getResources().getAssets();
+        InputStream buffer = new BufferedInputStream((assets.open("drawable/" + filename + ".png")));
+        Bitmap bitmap = BitmapFactory.decodeStream(buffer);
+        return new BitmapDrawable(context.getResources(), bitmap);
+    }
+
     public void showTimePickerDialog(View v) {
         DialogFragment newFragment = new TimePickerFragment(this);
-        newFragment.show(this.getFragmentManager(),"timePicker");
+        newFragment.show(this.getFragmentManager(), "timePicker");
     }
 
     //               BUTTON METHODS BELOW:
 
     // Button to add Pill with only one time
     public void add_pill(View view) {
-        String name = Pill_name.getText().toString();
-        int quantity = Integer.parseInt(Pill_quantity.getText().toString());
-        String instructions = Pill_instructions.getText().toString();
-        for(Time t: times){
-            Pill newPill = new Pill(name,quantity,t.getHours(),t.getMinutes(),instructions);
-            if(check_pill(newPill)){
-                addToDataBase(newPill);
+        if(Pill_name.getText().toString().isEmpty()||Pill_quantity.getText().toString().isEmpty()||times.isEmpty()){
+            Toast.makeText(getBaseContext(), "Input Medication Information", Toast.LENGTH_SHORT).show();
+        }else {
+            String name = Pill_name.getText().toString();
+            int quantity = Integer.parseInt(Pill_quantity.getText().toString());
+            String instructions = Pill_instructions.getText().toString();
+            for (Time t : times) {
+                Pill newPill = new Pill(name, quantity, t.getHours(), t.getMinutes(), instructions);
+                if (check_pill(newPill)) {
+                    addToDataBase(newPill);
+                }
             }
+            Toast.makeText(getBaseContext(), "Medication Added", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, Main2Activity.class);
+            startActivity(intent);
         }
-        Toast.makeText(getBaseContext(), "Medication Added", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, Main2Activity.class);
-        startActivity(intent);
     }
 
     //returns true if the pills are not equal
@@ -197,4 +216,6 @@ public class AddPill extends Activity{
         Log.d("ID", Integer.toString(feed.getIdByNameAndTime(sql, name, newTime)));
         feed.close();
     }
+
+
 }

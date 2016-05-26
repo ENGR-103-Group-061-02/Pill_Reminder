@@ -10,7 +10,18 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.drexel.engr103grp061_02.pillreminder.Main2Activity"
-    tools:showIn="@layout/app_bar_main2">
+    tools:showIn="@layout/app_bar_main2"
+    android:background="#ffffff">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="Logo"
+        android:background="#ffffff"
+        android:id="@+id/imageView2"
+        android:src="@drawable/logo2" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -18,4 +29,5 @@
         android:id="@+id/homePageList"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

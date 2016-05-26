@@ -1,14 +1,19 @@
 package com.drexel.engr103grp061_02.pillreminder;
 
 import android.app.AlarmManager;
-import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,12 +23,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.drexel.engr103grp061_02.pillreminder.adapters.CustomCursorAdapter;
 import com.drexel.engr103grp061_02.pillreminder.adapters.HomePageAdapter;
 import com.drexel.engr103grp061_02.pillreminder.database.FeedReaderContract;
 import com.drexel.engr103grp061_02.pillreminder.database.Pill;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -35,11 +44,13 @@ public class Main2Activity extends AppCompatActivity
     SQLiteDatabase sql;
     FeedReaderContract.FeedReaderDbHelper feed;
     boolean flag;
+    ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -156,14 +167,21 @@ public class Main2Activity extends AppCompatActivity
         return true;
     }
 
-    public ArrayList findLast()
-    {
-
-
-
-        return null;
+    @Override
+    public void onResume(){
+        super.onResume();
+        ListView listView = (ListView) findViewById(R.id.homePageList);
+        HomePageAdapter list_adapt = new HomePageAdapter(this, cursor,0);
+        listView.setAdapter(list_adapt);
     }
 
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        ListView listView = (ListView) findViewById(R.id.homePageList);
+        HomePageAdapter list_adapt = new HomePageAdapter(this, cursor,0);
+        listView.setAdapter(list_adapt);
+    }
 
     public boolean retrievePills() {
         int counter = 0;
