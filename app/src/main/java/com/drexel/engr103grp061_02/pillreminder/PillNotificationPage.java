@@ -26,12 +26,12 @@ public class PillNotificationPage extends Activity {
         FeedReaderContract.FeedReaderDbHelper feed;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pill_notification);
-        int id = this.getIntent().getIntExtra("id",0);
+        int id = this.getIntent().getIntExtra("id", 0);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder().cacheInMemory(false).build();
-        ImageView imgView =(ImageView) findViewById(R.id.noteLogo);
+        ImageView imgView = (ImageView) findViewById(R.id.noteLogo);
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
                 .defaultDisplayImageOptions(defaultOptions)
                 .build();
@@ -55,12 +55,16 @@ public class PillNotificationPage extends Activity {
         //Re-Set text Fields from specified pill_notified object
         notifiedName.setText(pill_notified.getName());
         notifiedQuantity.setText(Integer.toString(pill_notified.getQuantity()));
-        if(pill_notified.getInstructions().equalsIgnoreCase("")){
+        if (pill_notified.getInstructions() == null) {
             notifiedInstructions.setText("No Additional Information");
-        }else {
-            notifiedInstructions.setText(pill_notified.getInstructions());
+        } else {
+            if (pill_notified.getInstructions().equalsIgnoreCase("")) {
+                notifiedInstructions.setText("No Additional Information");
+            } else {
+                notifiedInstructions.setText(pill_notified.getInstructions());
+            }
+            noteTime.setText(pill_notified.getTime().getTimeFormattedString());
         }
-        noteTime.setText(pill_notified.getTime().getTimeFormattedString());
     }
 
     public void close(View view){

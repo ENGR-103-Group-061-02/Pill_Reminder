@@ -32,8 +32,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 public class EditPill extends AppCompatActivity {
     String name;
     int quantity;
-    static Time t = new Time();
     static Time oldT = new Time();
+    static Time t = new Time(oldT.getHours(),oldT.getMinutes());
     String instructions;
     TextView textName;
     TextView textQuantity;
@@ -104,6 +104,7 @@ public class EditPill extends AppCompatActivity {
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             Time newTime = new Time(hourOfDay,minute);
+            Log.d("newTime2",newTime.getTimeFormattedString());
             //TODO Check for equivalent times and prompt the user to enter a new time
             if(t.equals(newTime)) {
                 Toast.makeText(context, "Time already added \n Enter a new time", Toast.LENGTH_SHORT).show();
@@ -120,6 +121,8 @@ public class EditPill extends AppCompatActivity {
     }
 
     public void enter(View v){
+        Log.d("oldTime",oldT.getTimeFormattedString());
+        Log.d("newTime",t.getTimeFormattedString());
         String newName = textName.getText().toString();
         int newQuantity = Integer.parseInt(textQuantity.getText().toString());
         String newInstructions = textInstructions.getText().toString();
@@ -143,9 +146,9 @@ public class EditPill extends AppCompatActivity {
         }else{
             alarmIntent.putExtra("detail","Take " + quantity +" pills.\n"+ "Additional Instructions: "+ instructions);
         }
-        alarmIntent.putExtra("id",feed.getIdByNameAndTime(sql, name, newTime));
-        alarmIntent.putExtra("name",name);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, feed.getIdByNameAndTime(sql, name, newTime),
+        alarmIntent.putExtra("id",feed.getIdByNameAndTime(sql, newName, newTime));
+        alarmIntent.putExtra("name",newName);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, feed.getIdByNameAndTime(sql, newName, newTime),
                 alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), 24*60*60*1000, pendingIntent);
