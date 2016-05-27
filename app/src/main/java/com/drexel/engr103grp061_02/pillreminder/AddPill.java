@@ -19,8 +19,8 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -29,6 +29,9 @@ import com.drexel.engr103grp061_02.pillreminder.adapters.CustomArrayListAdapter;
 import com.drexel.engr103grp061_02.pillreminder.database.FeedReaderContract;
 import com.drexel.engr103grp061_02.pillreminder.database.Pill;
 import com.drexel.engr103grp061_02.pillreminder.database.Time;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -101,6 +104,15 @@ public class AddPill extends Activity{
         timeList = (ListView) findViewById(R.id.timeList);
         times = new ArrayList<Time>();
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder().cacheInMemory(false).build();
+        ImageView imgView =(ImageView) findViewById(R.id.addLogo);
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                .defaultDisplayImageOptions(defaultOptions)
+                .build();
+
+        ImageLoader.getInstance().init(config);
+        ImageLoader.getInstance().displayImage("assets://logo2.png", imgView);
     }
 
     public static BitmapDrawable getAssetImage(Context context, String filename) throws IOException {

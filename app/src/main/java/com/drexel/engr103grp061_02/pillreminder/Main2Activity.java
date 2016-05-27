@@ -1,19 +1,15 @@
 package com.drexel.engr103grp061_02.pillreminder;
 
+import java.util.ArrayList;
+
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,27 +20,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.ListView;
 
-import com.drexel.engr103grp061_02.pillreminder.adapters.HomePageAdapter;
 import com.drexel.engr103grp061_02.pillreminder.database.FeedReaderContract;
 import com.drexel.engr103grp061_02.pillreminder.database.Pill;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Calendar;
+
 
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     ArrayList<Pill> pills = new ArrayList<Pill>();
-    ArrayList<String> last_taken = new ArrayList<String>();
     Cursor cursor;
     SQLiteDatabase sql;
     FeedReaderContract.FeedReaderDbHelper feed;
     boolean flag;
-    ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,42 +57,16 @@ public class Main2Activity extends AppCompatActivity
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         flag = retrievePills();
-        ListView listView = (ListView) findViewById(R.id.homePageList);
-        HomePageAdapter list_adapt = new HomePageAdapter(this, cursor,0);
-        listView.setAdapter(list_adapt);
-        //
-        //HOME PAGE TIME TILL NEXT PILL TRACKER START---------------------
-        //
-        if (pills.size()>0) {
-            Calendar Now = Calendar.getInstance();
-            int hour = Now.get(Calendar.HOUR_OF_DAY);
-            int minute = Now.get(Calendar.MINUTE);
-            int Total = minute + (hour * 60);
-            //difference initialized as one more minute than 24 hours worth
-            int tempH, tempM, tempTotal, difference = 1441;
-            for (int c = 0; c < pills.size(); c++) {
-                tempH = pills.get(c).getHours();
-                tempM = pills.get(c).getMinutes();
-                tempTotal = tempM + (tempH * 60);
-                if (tempTotal > Total) {
-                    if ((tempTotal - Total) < difference) {
-                        difference = (tempTotal - Total);
-                    }
-                } else {
-                    tempTotal = tempTotal + (1439 - Total);
-                    if ((tempTotal - Total) < difference) {
-                        difference = (tempTotal - Total);
-                    }
-                }
-            }
-            //HOURS AND MINUTES TILL NEXT PILL TO TAKE
-            hour = difference / 60;
-            minute = difference % 60;
-        }
-        else
-        {
-            //make text set to no pills inputted
-        }
+
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder().cacheInMemory(false).build();
+        ImageView imgView =(ImageView) findViewById(R.id.mainLogo);
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                .defaultDisplayImageOptions(defaultOptions)
+                .build();
+
+        ImageLoader.getInstance().init(config);
+        ImageLoader.getInstance().displayImage("assets://logo2.png",imgView);
+
     }
 
     @Override
@@ -154,7 +119,7 @@ public class Main2Activity extends AppCompatActivity
         } else if (id == R.id.nav_clearPills){
             NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_ONE_SHOT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
             alarmManager.cancel(pendingIntent);
             mNotificationManager.cancelAll();
@@ -165,22 +130,6 @@ public class Main2Activity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        ListView listView = (ListView) findViewById(R.id.homePageList);
-        HomePageAdapter list_adapt = new HomePageAdapter(this, cursor,0);
-        listView.setAdapter(list_adapt);
-    }
-
-    @Override
-    public void onRestart(){
-        super.onRestart();
-        ListView listView = (ListView) findViewById(R.id.homePageList);
-        HomePageAdapter list_adapt = new HomePageAdapter(this, cursor,0);
-        listView.setAdapter(list_adapt);
     }
 
     public boolean retrievePills() {
@@ -204,5 +153,4 @@ public class Main2Activity extends AppCompatActivity
         }
         return true;
     }
-
 }

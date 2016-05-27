@@ -20,8 +20,7 @@
         android:layout_centerHorizontal="true"
         android:contentDescription="Logo"
         android:background="#ffffff"
-        android:id="@+id/imageView2"
-        android:src="@drawable/logo2" />
+        android:id="@+id/mainLogo" />
 
     <ListView
         android:layout_width="wrap_content"

@@ -2,16 +2,19 @@ package com.drexel.engr103grp061_02.pillreminder;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.drexel.engr103grp061_02.pillreminder.database.FeedReaderContract;
 import com.drexel.engr103grp061_02.pillreminder.database.Pill;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class PillNotificationPage extends Activity {
 
@@ -24,6 +27,16 @@ public class PillNotificationPage extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pill_notification);
         int id = this.getIntent().getIntExtra("id",0);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder().cacheInMemory(false).build();
+        ImageView imgView =(ImageView) findViewById(R.id.noteLogo);
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                .defaultDisplayImageOptions(defaultOptions)
+                .build();
+        ImageLoader.getInstance().init(config);
+        ImageLoader.getInstance().displayImage("assets://logo2.png", imgView);
 
         //declaring ID's
         Button close = (Button) findViewById(R.id.closeButton);
@@ -42,7 +55,7 @@ public class PillNotificationPage extends Activity {
         //Re-Set text Fields from specified pill_notified object
         notifiedName.setText(pill_notified.getName());
         notifiedQuantity.setText(Integer.toString(pill_notified.getQuantity()));
-        if(pill_notified.getInstructions().equals("")){
+        if(pill_notified.getInstructions().equalsIgnoreCase("")){
             notifiedInstructions.setText("No Additional Information");
         }else {
             notifiedInstructions.setText(pill_notified.getInstructions());

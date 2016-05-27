@@ -12,8 +12,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView3"
-            android:src="@drawable/logo2"
+            android:id="@+id/addLogo"
             android:contentDescription="Logo"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
@@ -44,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/Pill_instructions"
-            android:hint="Aditional Information (Optional)"
+            android:hint="Additional Information (Optional)"
             android:gravity="center"
             android:layout_below="@+id/Pill_quantity"
             android:layout_centerHorizontal="true"

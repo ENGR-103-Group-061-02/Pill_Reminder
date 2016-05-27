@@ -17,11 +17,10 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView4"
+        android:id="@+id/editLogo"
         android:contentDescription="Logo"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/logo2" />
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -66,8 +65,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="38dp"
-        android:hint="Instructions"
-        android:text="test" />
+        android:hint="Additional Information" />
 
     <EditText
         android:layout_width="match_parent"
@@ -127,7 +125,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Aditional Information"
+        android:text="Additional Information"
         android:id="@+id/textView5"
         android:layout_above="@+id/pillInstructions"
         android:layout_centerHorizontal="true" />

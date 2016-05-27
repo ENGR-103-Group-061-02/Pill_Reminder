@@ -1,5 +1,6 @@
 package com.drexel.engr103grp061_02.pillreminder;
 
+import java.util.Calendar;
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -9,13 +10,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -23,8 +24,10 @@ import android.widget.Toast;
 import com.drexel.engr103grp061_02.pillreminder.database.FeedReaderContract;
 import com.drexel.engr103grp061_02.pillreminder.database.Pill;
 import com.drexel.engr103grp061_02.pillreminder.database.Time;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-import java.util.Calendar;
 
 public class EditPill extends AppCompatActivity {
     String name;
@@ -44,6 +47,15 @@ public class EditPill extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder().cacheInMemory(false).build();
+        ImageView imgView =(ImageView) findViewById(R.id.editLogo);
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                .defaultDisplayImageOptions(defaultOptions)
+                .build();
+
+        ImageLoader.getInstance().init(config);
+        ImageLoader.getInstance().displayImage("assets://logo2.png", imgView);
         //TODO assuming
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
@@ -56,7 +68,7 @@ public class EditPill extends AppCompatActivity {
         textQuantity = (TextView) findViewById(R.id.pillQuantity);
         textTime = (TextView) findViewById(R.id.pillTime);
         textInstructions = (TextView) findViewById(R.id.pillInstructions);
-
+        Log.d("time", oldT.getTimeFormattedString());
         textName.setText(name);
         textQuantity.setText(Integer.toString(quantity));
         textTime.setText(oldT.getTimeFormattedString());
@@ -82,8 +94,8 @@ public class EditPill extends AppCompatActivity {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current time as the default values for the picker
             final Calendar c = Calendar.getInstance();
-            int hour = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
+            int hour = oldT.getHours();
+            int minute = oldT.getMinutes();
 
             // Create a new instance of TimePickerDialog and return it
             return new TimePickerDialog(getActivity(), this, hour, minute,
